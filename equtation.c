@@ -3,8 +3,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-// double * [_ _ _ _ _ _ _ _]  ptr_to_a = &a;
-// double ** [_ _ _ _ _ _ _ _] ptr_to_ptr_to_a = &ptr_to_a;
+double zero = 0.0000000001;
 enum case_of_anu_equtation
 {
     No_solutions,
@@ -17,7 +16,7 @@ enum case_of_anu_equtation
 
 bool comparison_null (double a)
 {
-    if (fabs(a) < 0.00000001) return true;
+    if (fabs(a) < zero) return true;
     else return false;
 }
 
@@ -25,17 +24,15 @@ void scan_coefficients(double *ptr_to_a
                      , double *ptr_to_b
                      , double *ptr_to_c)
 {
-    // scanf -- функция со своим буфером
-    // ['a''\n'-----------------]
+    assert(ptr_to_a != NULL);
+    assert(ptr_to_b != NULL);
+    assert(ptr_to_c != NULL);
     printf("Please, enter three coefficients of square equration\n");
     while (3 != scanf("%lf%lf%lf", ptr_to_a, ptr_to_b, ptr_to_c)) {
         printf("An error with input, try again\n");
         while ('\n' != getchar()) {
         }
      }
-    assert(ptr_to_a != NULL);
-    assert(ptr_to_b != NULL);
-    assert(ptr_to_c != NULL);
     return ;
 }
 
@@ -72,7 +69,7 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
     }
     double dis = 0;
     dis = b*b - 4*a*c;
-    if (dis < -0.00000001)
+    if (dis < zero)
     {
         *case_of_equtation = No_solutions; // нет решений
         return;
