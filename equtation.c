@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
+#include <stdbool.h>
+
 // double * [_ _ _ _ _ _ _ _]  ptr_to_a = &a;
 // double ** [_ _ _ _ _ _ _ _] ptr_to_ptr_to_a = &ptr_to_a;
 enum case_of_anu_equtation
@@ -12,6 +14,12 @@ enum case_of_anu_equtation
     Lin_with_no_solution,
     Lin_with_one_solution
 };
+
+bool comparison_null (double a)
+{
+    if (fabs(a) < 0.00000001) return true;
+    else return false;
+}
 
 void scan_coefficients(double *ptr_to_a
                      , double *ptr_to_b
@@ -33,11 +41,11 @@ void scan_coefficients(double *ptr_to_a
 
 void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *case_of_equtation)
 {
-    if (fabs(a) < 0.00000001)
+    if (comparison_null(a))
     {
-        if (fabs(b) < 0.00000001)
+        if (comparison_null(b))
         {
-            if (fabs(c) < 0.00000001)  *case_of_equtation = Lin_with_endles_solutions; // lin with endles solution
+            if (comparison_null(c))  *case_of_equtation = Lin_with_endles_solutions; // lin with endles solution
             else   *case_of_equtation = Lin_with_no_solution; // lin with no solution
             return;
         }
@@ -45,9 +53,9 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
         *case_of_equtation = Lin_with_one_solution; //lin with 1 solution
         return;
     }
-    if (fabs(b) < 0.00000001)
+    if (comparison_null(b))
     {
-        if (fabs(c) < 0.00000001)
+        if (comparison_null(c))
         {
             *case_of_equtation = One_solution;
             *x1 = 0;
@@ -69,7 +77,7 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
         *case_of_equtation = No_solutions; // нет решений
         return;
     }
-    if (dis < 0.00000001) *case_of_equtation = One_solution; // 1 решение
+    if (comparison_null(dis)) *case_of_equtation = One_solution; // 1 решение
     *x1 = (-b + sqrt(dis))/(2*a);
     *x2 = (-b - sqrt(dis))/(2*a);
     return;
