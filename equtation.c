@@ -3,6 +3,15 @@
 #include <math.h>
 // double * [_ _ _ _ _ _ _ _]  ptr_to_a = &a;
 // double ** [_ _ _ _ _ _ _ _] ptr_to_ptr_to_a = &ptr_to_a;
+enum case_of_anu_equtation
+{
+    No_solutions,
+    One_solution,
+    Two_solution,
+    Lin_with_endles_solutions,
+    Lin_with_no_solution,
+    Lin_with_one_solution
+};
 
 void scan_coefficients(double *ptr_to_a
                      , double *ptr_to_b
@@ -28,25 +37,25 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
     {
         if (fabs(b) < 0.00000001)
         {
-            if (fabs(c) < 0.00000001)  *case_of_equtation = 3; // lin with endles solution
-            else   *case_of_equtation = 4; // lin with no solution
+            if (fabs(c) < 0.00000001)  *case_of_equtation = Lin_with_endles_solutions; // lin with endles solution
+            else   *case_of_equtation = Lin_with_no_solution; // lin with no solution
             return;
         }
         *x1 = -c/b;
-        *case_of_equtation = 5; //lin with 1 solution
+        *case_of_equtation = Lin_with_one_solution; //lin with 1 solution
         return;
     }
     if (fabs(b) < 0.00000001)
     {
         if (fabs(c) < 0.00000001)
         {
-            *case_of_equtation = 1;
+            *case_of_equtation = One_solution;
             *x1 = 0;
             return;
         }
         if (a>0 && c>0 || a<0 && c<0)
         {
-            *case_of_equtation = 0;
+            *case_of_equtation = No_solutions;
             return;
         }
         *x1 = sqrt(-c/a);
@@ -57,10 +66,10 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
     dis = b*b - 4*a*c;
     if (dis < -0.00000001)
     {
-        *case_of_equtation = 0 ; // нет решений
+        *case_of_equtation = No_solutions; // нет решений
         return;
     }
-    if (dis < 0.00000001) *case_of_equtation = 1; // 1 решение
+    if (dis < 0.00000001) *case_of_equtation = One_solution; // 1 решение
     *x1 = (-b + sqrt(dis))/(2*a);
     *x2 = (-b - sqrt(dis))/(2*a);
     return;
@@ -68,16 +77,16 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
 
 void print_answer(double x1, double x2, int case_of_equtation)
 {
-    if (case_of_equtation == 0) printf("Square equtation haven't got any roots\n");
-    if (case_of_equtation == 1) printf("Square equtation have got one root\nX = %lf\n", x1);
-    if (case_of_equtation == 2) printf("Square equtation have got two roots\nX1 = %lf\nX2 = %lf", x1, x2);
-    if (case_of_equtation == 3) printf("Linear equtation have got infinite roots\n");
-    if (case_of_equtation == 4) printf("Linear equtation haven't got any roots\n");
-    if (case_of_equtation == 5) printf("Linear equtation have got one root\nX = %lf\n", x1);
+    if (case_of_equtation == No_solutions) printf("Square equtation haven't got any roots\n");
+    if (case_of_equtation == One_solution) printf("Square equtation have got one root\nX = %lf\n", x1);
+    if (case_of_equtation == Two_solution) printf("Square equtation have got two roots\nX1 = %lf\nX2 = %lf", x1, x2);
+    if (case_of_equtation == Lin_with_endles_solutions) printf("Linear equtation have got infinite roots\n");
+    if (case_of_equtation == Lin_with_no_solution) printf("Linear equtation haven't got any roots\n");
+    if (case_of_equtation == Lin_with_one_solution) printf("Linear equtation have got one root\nX = %lf\n", x1);
 }
 
 int main() {
-    int case_of_equtation = 2;
+    int case_of_equtation = Two_solution;
     double a = 0, b = 0, c = 0;
     double x1 = 0, x2 = 0;
     scan_coefficients(&a, &b, &c);
