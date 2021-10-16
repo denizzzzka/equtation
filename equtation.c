@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 double zero = 0.0000000001;
+
 enum case_of_anu_equtation
 {
     No_solutions,
@@ -69,7 +70,7 @@ void solve_quadr_eq (double a, double b, double c, double *x1, double *x2, int *
     }
     double dis = 0;
     dis = b*b - 4*a*c;
-    if (dis < zero)
+    if (dis < -zero)
     {
         *case_of_equtation = No_solutions; // нет решений
         return;
