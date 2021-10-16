@@ -89,13 +89,3 @@ void print_answer(double x1, double x2, int case_of_equtation)
     if (case_of_equtation == Lin_with_no_solution) printf("Linear equtation haven't got any roots\n");
     if (case_of_equtation == Lin_with_one_solution) printf("Linear equtation have got one root\nX = %lf\n", x1);
 }
-
-int main() {
-    int case_of_equtation = Two_solution;
-    double a = 0, b = 0, c = 0;
-    double x1 = 0, x2 = 0;
-    scan_coefficients(&a, &b, &c);
-    solve_quadr_eq(a, b, c, &x1, &x2, &case_of_equtation);
-    print_answer(x1, x2, case_of_equtation);
-    return 0;
-}
